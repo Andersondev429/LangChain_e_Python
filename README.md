@@ -1,165 +1,191 @@
-# 📄  LangChain_e_Python
+# 🤖 LangChain Masterclass: De Cadeias a Agentes com RAG
 
-Sistema de perguntas e respostas baseado em documentos PDF utilizando **RAG (Retrieval-Augmented Generation)** com execução **100% local**.
+Este repositório é um laboratório prático focado no ecossistema **LangChain**, demonstrando a evolução de aplicações de Inteligência Artificial — desde prompts estruturados até agentes inteligentes com memória e sistemas RAG.
 
-O projeto permite consultar informações de arquivos PDF de forma inteligente, utilizando busca semântica e um modelo de linguagem rodando no LM Studio.
-
----
-
-## 🚀 Funcionalidades
-
-- 📚 Leitura de múltiplos arquivos PDF  
-- ✂️ Divisão inteligente de textos (chunking)  
-- 🧠 Geração de embeddings locais (Hugging Face)  
-- 🔍 Busca semântica com FAISS  
-- 🤖 Respostas com LLM rodando localmente (LM Studio)  
-- 🔒 Sem dependência de APIs externas  
+O projeto foi desenvolvido com foco em aprendizado progressivo, explorando conceitos fundamentais e avançados de forma prática.
 
 ---
 
-## 🧠 Como funciona
+## 🌟 Diferencial: Execução 100% Local
 
-O fluxo do projeto segue a arquitetura RAG:
+Todo o projeto foi projetado para rodar localmente, garantindo:
 
-1. Carrega os PDFs  
-2. Divide o conteúdo em pedaços menores  
-3. Converte os textos em embeddings (vetores)  
-4. Armazena no FAISS  
-5. Busca os trechos mais relevantes para a pergunta  
-6. Envia contexto + pergunta para o modelo LLM  
-7. Gera uma resposta baseada apenas no conteúdo dos documentos  
+- 🔒 Privacidade total: seus dados nunca saem da sua máquina  
+- 💰 Custo zero: sem necessidade de APIs pagas  
+- ⚡ Performance local com modelos leves  
 
----
-
-## 🛠️ Tecnologias utilizadas
-
-- Python 3.10+
-- LangChain  
-- FAISS  
-- Sentence Transformers (Hugging Face)  
-- LM Studio (modelo local)  
+### 📌 Modelo recomendado
+```
+google/gemma-3-1b
+```
+*(ou qualquer modelo compatível com API OpenAI via LM Studio)*
 
 ---
 
-## 📦 Instalação
+## 🏗️ Estrutura do Projeto
 
-### 1. Clone o repositório
+O repositório está dividido em 4 módulos principais:
 
-```bash
-git clone https://github.com/seu-usuario/rag-pdf-assistant-local.git
-cd rag-pdf-assistant-local
+---
+
+### 🔗 1. Cadeias Sequenciais Estruturadas (`main.py`)
+
+Demonstra o conceito de **Chain Composition**, onde a saída de uma etapa alimenta a próxima.
+
+**Fluxo:**
+```
+Entrada → Cidade → Restaurantes → Roteiro Cultural
+```
+
+**Destaques:**
+- Uso de JsonOutputParser  
+- Validação com Pydantic  
+- Estrutura confiável de dados entre etapas  
+
+---
+
+### 🧠 2. Chat com Memória de Sessão (`main_chat.py`)
+
+Transforma o LLM em um assistente com memória contextual.
+
+**Funcionalidades:**
+- Histórico de conversa por sessão  
+- Contexto persistente  
+- Respostas mais naturais  
+
+**Tecnologias:**
+- InMemoryChatMessageHistory  
+- RunnableWithMessageHistory  
+
+---
+
+### 🕸️ 3. Fluxos Inteligentes com LangGraph (`main_langgraph.py`)
+
+Implementação de agentes baseados em grafos de estado.
+
+**Lógica:**
+- Um nó roteador interpreta a intenção do usuário  
+- Direciona para especialistas:  
+  - 🏖️ Praia  
+  - 🏔️ Montanha  
+
+**Diferencial:**
+- Decisão dinâmica de fluxo  
+- Arquitetura escalável de agentes  
+
+---
+
+### 📚 4. Sistema RAG de Seguros (`main_rag.py`)
+
+Implementação completa de **Retrieval-Augmented Generation (RAG)**.
+
+**Pipeline:**
+1. Carregamento de PDFs  
+2. Divisão de texto  
+3. Geração de embeddings  
+4. Armazenamento vetorial  
+5. Busca semântica  
+6. Geração de resposta com contexto  
+
+---
+
+## 📊 Arquitetura do RAG
+
+```
+Documentos PDF
+       ↓
+Embeddings Locais
+       ↓
+Banco Vetorial (FAISS)
+       ↓
+Busca por Similaridade
+       ↓
+Prompt + Contexto
+       ↓
+LLM Local
+       ↓
+Resposta Final
 ```
 
 ---
 
-### 2. Crie e ative um ambiente virtual
+## 🚀 Como Configurar e Rodar
+
+### 1️⃣ Pré-requisitos
+
+- Instalar o LM Studio  
+- Baixar um modelo compatível (ex: gemma-3-1b)  
+- Iniciar o servidor local na porta 1234  
+
+---
+
+### 2️⃣ Instalação
 
 ```bash
+# Clonar o repositório
+git clone https://github.com/seu-usuario/seu-repositorio.git
+cd seu-repositorio
+
+# Criar ambiente virtual
 python -m venv .venv
-```
 
-#### Windows:
-```bash
+# Ativar ambiente
+
+# Windows
 .venv\Scripts\activate
-```
 
-#### Linux / Mac:
-```bash
+# Linux / Mac
 source .venv/bin/activate
+
+# Instalar dependências
+pip install -r requirements.txt
 ```
 
 ---
 
-### 3. Instale as dependências
+### 3️⃣ Executar os módulos
 
 ```bash
-pip install langchain langchain-community langchain-openai
-pip install langchain-text-splitters
-pip install sentence-transformers
-pip install faiss-cpu
-pip install pypdf
-```
-
----
-
-## 🤖 Configuração do LM Studio
-
-1. Baixe e instale o LM Studio  
-2. Carregue um modelo (ex: `gemma`, `llama`, `mistral`)  
-3. Inicie o servidor local  
-4. Verifique se está rodando em:
-
-```
-http://127.0.0.1:1234/v1
-```
-
----
-
-## 📁 Estrutura do projeto
-
-```
-rag-pdf-assistant-local/
-│
-├── documentos/
-│   ├── arquivo1.pdf
-│   ├── arquivo2.pdf
-│   └── arquivo3.pdf
-│
-├── main_rag.py
-├── README.md
-└── requirements.txt (opcional)
-```
-
----
-
-## ▶️ Como usar
-
-1. Adicione seus PDFs na pasta `documentos/`  
-2. Execute o script:
-
-```bash
+python main.py
+python main_chat.py
+python main_langgraph.py
 python main_rag.py
 ```
 
-3. O sistema irá responder perguntas com base nos documentos carregados  
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- LangChain → Orquestração de LLMs  
+- LangGraph → Fluxos de agentes com estado  
+- FAISS → Busca vetorial eficiente  
+- HuggingFace Embeddings → Vetorização gratuita  
+- PyPDF → Leitura de PDFs  
+- Pydantic → Validação de dados  
 
 ---
 
-## 💬 Exemplo de uso
+## 📝 Boas Práticas
 
-```python
-print(responder("Como proceder em caso de item roubado?"))
-```
+O projeto já inclui um `.gitignore` configurado para evitar:
 
----
-
-## ⚠️ Observações importantes
-
-- Certifique-se de que o LM Studio está rodando  
-- O modelo precisa estar carregado antes da execução  
-- Em Windows, evite caminhos muito longos (ou ative suporte a long paths)  
-- Para melhor desempenho, utilize modelos LLM mais robustos  
+- Ambientes virtuais (.venv)  
+- Variáveis sensíveis (.env)  
+- Cache do LangChain  
 
 ---
 
-## 🚀 Melhorias futuras
+## 💡 Possíveis Extensões
 
-- 💾 Persistência do índice FAISS  
-- ⚡ Otimização de performance  
-- 🧠 Uso de modelos mais avançados  
-- 🔎 Implementação de reranking  
-- 🌐 Interface web (Streamlit ou FastAPI)  
-
----
-
-## 📜 Licença
-
-Este projeto é livre para uso educacional e estudos.
+- Integração com banco de dados  
+- Deploy como API (FastAPI / Flask)  
+- Interface web (Streamlit / React)  
+- Uso de modelos maiores  
 
 ---
 
-## 👨‍💻 Autor
+## ⭐ Contribuição
 
-Anderson Pinheiro da Silva
+Sinta-se livre para contribuir com melhorias, sugestões ou novos exemplos.
 
-Desenvolvido para estudos em Engenharia de IA e aplicações com LangChain.
+Se este projeto te ajudou, considere deixar uma ⭐ no repositório!
