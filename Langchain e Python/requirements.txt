@@ -1,0 +1,9 @@
+openai==0.86.0
+langchain==0.3.25
+langchain-openai==0.0.22
+langchain-core==0.1.1
+faiss-cpu==1.13.0
+langchain-community==0.3.25
+pypdf==5.6.0
+
+### Este arquivo é para listar as dependências do projeto, que são as bibliotecas necessárias para executar o código. Certifique-se de instalar essas dependências usando um gerenciador de pacotes como pip, para garantir que o ambiente de desenvolvimento esteja configurado corretamente e que o código funcione sem problemas.
